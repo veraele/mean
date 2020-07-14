@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./photo-list.component.css']
 })
 export class PhotoListComponent implements OnInit {
-  URI = 'http://localhost:4000/';
+  URI = 'http://localhost:3300/';
   photos = [];
   constructor(private pService: PhotoService, private router: Router) { }
 

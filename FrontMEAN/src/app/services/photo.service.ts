@@ -7,7 +7,7 @@ import { Photo } from '../interfaces/Photo';
 })
 export class PhotoService {
 
-  URI = 'http://localhost:4000/api/photos';
+  URI = 'http://localhost:3300/api/photos';
   constructor(private http: HttpClient) { }
 
   createPhoto(title: string, description: string, photo: File) {

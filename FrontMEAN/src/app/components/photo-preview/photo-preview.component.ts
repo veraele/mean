@@ -12,7 +12,7 @@ export class PhotoPreviewComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private pService: PhotoService) { }
   id: string;
-  URI = 'http://localhost:4000/';
+  URI = 'http://localhost:3300/';
   photo: Photo;
   ngOnInit(): void {
     this.activatedRoute.params.subscribe( params => {
@@ -26,7 +26,10 @@ export class PhotoPreviewComponent implements OnInit {
   }
   deletePhoto(id: string) {
     this.pService.deletePhoto(id)
-      .subscribe( res => console.log(res), err => console.log(err));
+      .subscribe( res => {
+        console.log(res);
+        this.router.navigate(['/photos']);
+      }, err => console.log(err));
   }
   updatePhoto(title: HTMLInputElement, description: HTMLTextAreaElement): boolean {
     this.pService.updatePhoto(this.id, title.value, description.value)

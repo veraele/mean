@@ -9,7 +9,6 @@ export async function getPhotos(req: Request, res: Response): Promise<Response> 
     return res.json(photos);
 };
 export async function getPhoto(req: Request, res: Response): Promise<Response> {
-    
     const photo = await Photo.findById(req.params.id);
     return res.json(photo);
 };
