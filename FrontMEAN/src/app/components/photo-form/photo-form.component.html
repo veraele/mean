@@ -13,7 +13,7 @@
         </div>
         <input type="file" class="d-none" (change)="onPhotoSelected($event)" #photoInput>
         <img class="img-fluid" [src]="photoSelected || 'assets/Products_NoImageYet.jpg'" alt="No Image" (click)="photoInput.click()" >
-        <button class="btn btn-primary btn-block">Upload</button>
+        <button class="btn btn-primary btn-block" style="margin-top: 10px;">Upload</button>
       </form>
     </div>
   </div>

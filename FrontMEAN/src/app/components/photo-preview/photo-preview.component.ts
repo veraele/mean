@@ -29,14 +29,14 @@ export class PhotoPreviewComponent implements OnInit {
       .subscribe( res => {
         console.log(res);
         this.router.navigate(['/photos']);
-      }, err => console.log(err));
+      });
   }
   updatePhoto(title: HTMLInputElement, description: HTMLTextAreaElement): boolean {
     this.pService.updatePhoto(this.id, title.value, description.value)
       .subscribe( res => {
         console.log(res);
         this.router.navigate(['/photos']);
-      }, err => console.log(err));
+      });
     return false;
   }
 }

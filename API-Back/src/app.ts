@@ -21,3 +21,6 @@ app.use("/api", indexRoutes);
 app.use('/uploads', express.static(path.resolve('uploads')));
 
 export default app;
+
+// Ignore... sudo mongod --dbpath /Users/veral/data/db
+//https://www.it-swarm.dev/es/node.js/conexion-al-contenedor-de-docker-mongo-desde-el-host/1056988393/

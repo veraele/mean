@@ -13,23 +13,29 @@ interface HtmlInputEvent extends Event {
 export class PhotoFormComponent implements OnInit {
   file: File;
   photoSelected: string | ArrayBuffer;
+  created: boolean;
   constructor(private pService: PhotoService, private router: Router) { }
 
   ngOnInit(): void {
   }
-  onPhotoSelected(event: HtmlInputEvent): void {
-    if (event.target.files && event.target.files[0]) {
-      this.file = (event.target.files[0] as File);
-
+  assignFile(reader: FileReader): any{
+    this.photoSelected = reader.result;
+    return () => { this.photoSelected = reader.result;}
+  }
+  onPhotoSelected(event: Event): void {
+    const target = <HTMLInputElement>event.target;
+    if (target.files && target.files[0]) {
+      this.file = (target.files[0] as File);
       const reader = new FileReader();
-      reader.onload = e => this.photoSelected = reader.result;
+      reader.onload = this.assignFile(reader);
       reader.readAsDataURL(this.file);
     }
   }
   uploadPhoto(title: HTMLInputElement, description: HTMLTextAreaElement): boolean {
     this.pService.createPhoto(title.value, description.value, this.file).subscribe(res => {
+      this.created = true;
       this.router.navigate(['/photos']);
-    }, err => console.log(err));
+    });
     return false;
   }
 }
