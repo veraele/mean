@@ -23,7 +23,6 @@ describe('API test: POST /api/photos', () => {
                 console.log(err);
             }
             console.log(res.body);
-            console.log(' id --> '+ res.body.photo._id);
             
             id = res.body.photo._id;
             expect(res).to.have.status(200);
