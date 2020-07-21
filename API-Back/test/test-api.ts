@@ -1,84 +1,95 @@
-import app from '../src/app';
-//import main from '../src/index'
 import path from 'path';
-import fs from 'fs-extra';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import 'mocha';
 
+import app from '../src/app';
+
 chai.use(chaiHttp);
+chai.should();
+
 const expect = chai.expect;
-let id: string = "5f16f82ef1d09a1183611fb9";
-//const url= 'http://localhost:3300';
-//main();
-describe('API test: POST /api/photos', () => {
-    it('post a photo', (done)=> {
-       chai.request(app)
-        .post('/api/photos/')
-        .set("Content-Type", "multipart/form-data")
-        .field('title', 'titulito')
-        .field('description', 'descripcion de prueba')
-        .attach('image',path.resolve(__dirname, "assets/test_logo.jpg"),"test_logo.jpg")
-        .end((err, res) => {
-            if(err) {
-                console.log(err);
-            }
-            console.log('Post Successful');
-            
-            console.log(res.body);
-            
-            id = res.body.photo._id;
-            expect(res).to.have.status(200);
-            done();
-        }).catch(err => {console.log('error post -> '+err);});
-    });
-});
+const assert = chai.assert;
 
-describe('API test: GET /api/photos', () => {
-    it('get a photo ', (done)=> {
+const createPhoto = () =>  {
+    return new Promise((resolve, reject) => {
         chai.request(app)
-        .get('/api/photos/'+ id)
-        .then((res) => {
-            console.log(res.body);
-            expect(res).to.have.status(200);
-            done();
-        }).catch(err => console.log(' error get -> ' + err) );
+            .post('/api/photos/')
+            .set('Content-Type', 'multipart/form-data')
+            .field('title', 'titulito')
+            .field('description', 'descripcion de prueba')
+            .attach('image',path.resolve(__dirname, 'assets/test_logo.jpg'),"test_logo.jpg")
+            .send()
+            .end((err, res) => {
+                if(err) {
+                    console.log(err);
+                    reject(err);
+                }
+                console.log('Post Successful');
+                console.log(res.body);
+                const id = res.body.photo._id;
+                expect(res).to.have.status(200);
+                resolve(id);
+            });
     });
-});
+}
 
-describe('API test: PUT /api/photos', () => {
-    it('Update a photo ', (done)=> {
-        chai.request(app)
-        .put('/api/photos/'+ id)
-        .send({description: 'new description', title: 'new title'})
-        .then((res) => {
-            console.log(res.body);
-            expect(res).to.have.status(200);
-            done();
-        }).catch(err => console.log(' error put -> ' + err) );
+describe('API test: /api/photos', () => {
+    it('get a photo', (done) => {
+        createPhoto().then((id) => {
+            console.log('jajaja', id);
+            chai.request(app)
+            .get('/api/photos/'+ id)
+            .send()
+            .end((err, res) => {
+                console.log('res.status', res.status);
+                console.log('res.text', res.text);
+                console.log('res.body', res.body);
+                expect(res).to.have.status(200);
+                done();
+            });
+        });
     });
-});
-
-describe('API test: GET /api/photos', () => {
-    it('get all photos ', (done)=> {
-        chai.request(app)
-        .get('/api/photos')
-        .then((res) => {
-            console.log(res.body);
-            expect(res).to.have.status(200);
-            done();
-        }).catch(err => console.log(' error get2 -> ' + err) );
+    
+    it('Update a photo', (done) => {
+        createPhoto().then((id) => {
+            chai.request(app)
+            .put('/api/photos/'+ id)
+            .send({
+                description: 'new description',
+                title: 'new title'
+            })
+            .end((err, res) => {
+                console.log(res.body);
+                expect(res).to.have.status(200);
+                done();
+            });
+        });
     });
-});
 
-describe('API test: DELETE /api/photos', () => {
-    it('delete a photo ', (done)=> {
-        chai.request(app)
-        .delete('/api/photos/'+ id)
-        .then((res) => {
-            console.log(res.body);
-            expect(res).to.have.status(200);
-            done();
-        }).catch(err => console.log(' error delete  -> ' + err) );
+    it('get all photos', (done) => {
+        createPhoto().then(_ => {
+            chai.request(app)
+            .get('/api/photos')
+            .send()
+            .end((err, res) => {
+                console.log('res.body', res.body);
+                expect(res).to.have.status(200);
+                done();
+            });
+        })
+    });
+
+    it('delete a photo', (done) => {
+        createPhoto().then((id) => {
+            chai.request(app)
+            .delete('/api/photos/'+ id)
+            .send()
+            .end((err, res) => {
+                console.log('res.status', res.status);
+                expect(res).to.have.status(200);
+                done();
+            });
+        });
     });
 });

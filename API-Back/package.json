@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -r dist",
-    "test": "mocha -r ts-node/register test/**/*.ts",
+    "test": "mocha --timeout 10000 -r ts-node/register test/**/*.ts",
     "start": "npm run build && node dist/index.js",
     "dev": "nodemon src/index.ts",
     "database": "docker run --name mongo -p 27017:27017 -d mongo:4.0 mongod && docker start mongo",
