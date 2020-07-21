@@ -32,5 +32,9 @@ jobs:
             - run:
                 name: Testing
                 command: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
-            # End to End test
+workflows:
+    version: 2
+    build_and_test:
+        jobs:
+        - build-and-test-front
 
