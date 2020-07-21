@@ -7,6 +7,7 @@ import { PhotoService } from 'src/app/services/photo.service';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
+import { PhotoListComponent } from '../photo-list/photo-list.component';
 
 describe('PhotoPreviewComponent', () => {
   let component: PhotoPreviewComponent;
@@ -17,7 +18,9 @@ describe('PhotoPreviewComponent', () => {
     TestBed.configureTestingModule({
       imports: [ 
         HttpClientModule,
-        RouterTestingModule
+        RouterTestingModule.withRoutes([
+          { path: 'photos', component: PhotoListComponent}
+      ])
     ],
     providers:[
     ],
@@ -39,8 +42,8 @@ describe('PhotoPreviewComponent', () => {
   });
 
   it('should load a photo', () => {
-    let res: any = {title: 'ttt', description: 'dd', imagePath: 'ss'};
-    spyOn(pService,'getPhoto').and.returnValue(of(res));
+    let res: any = { title: 'ttt', description: 'dd', imagePath: 'ss' };
+    spyOn(pService,'getPhoto').withArgs(undefined).and.returnValue(of(res));
     component.ngOnInit();
     fixture.detectChanges();
     expect(component.photo).toEqual(res);
@@ -48,7 +51,7 @@ describe('PhotoPreviewComponent', () => {
 
   it('should delete a photo', () => {
     let res:any;
-    spyOn(pService,'deletePhoto').and.returnValue(of(res));
+    spyOn(pService,'deletePhoto').withArgs("1").and.returnValue(of(res));
     component.deletePhoto('1');
     fixture.detectChanges();
     expect(router.navigate).not.toHaveBeenCalled();
@@ -59,7 +62,7 @@ describe('PhotoPreviewComponent', () => {
     const input = fixture.debugElement.query(By.css('input'));
     const mockTitle :any ='';
     const mockDescription :any = '';
-    spyOn(pService,'updatePhoto').and.returnValue(of(res));
+    spyOn(pService,'updatePhoto').withArgs(undefined,undefined,undefined).and.returnValue(of(res));
     component.updatePhoto(mockTitle, mockDescription);
     fixture.detectChanges();
     expect(router.navigate).not.toHaveBeenCalled();

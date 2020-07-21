@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { PhotoService } from 'src/app/services/photo.service';
 import { Observable, of } from 'rxjs';
+import { PhotoListComponent } from '../photo-list/photo-list.component';
 
 describe('PhotoFormComponent', () => {
   let component: PhotoFormComponent;
@@ -16,7 +17,9 @@ describe('PhotoFormComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
-        RouterTestingModule
+        RouterTestingModule.withRoutes([
+          { path: 'photos', component: PhotoListComponent}
+      ])
       ],
       providers:[
         PhotoService,

@@ -36,6 +36,7 @@ jobs:
         working_directory: ~/mean/API-Back
         docker:
             - image: circleci/node:10.16.3
+            - image: mongo:4.0
         steps:
             - checkout:
                 path: ~/mean

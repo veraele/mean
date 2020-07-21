@@ -16,7 +16,9 @@ describe('PhotoListComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
-        RouterTestingModule
+        RouterTestingModule.withRoutes([
+          { path: 'photos', component: PhotoListComponent}
+      ])
       ],
       providers:[
         { provide: Router, useValue: router }
