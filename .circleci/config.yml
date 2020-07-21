@@ -3,7 +3,7 @@ version: 2
 jobs:
     # The test job
     build:
-        working_directory: ~/mean/FrontMEAN/src
+        working_directory: ~/mean/FrontMEAN/
         docker:
             - image: circleci/node:10-browsers
         steps:
