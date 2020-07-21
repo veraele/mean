@@ -38,15 +38,3 @@ jobs:
                 command: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
             # End to End test
 
-workflows:
-    version: 2
-    # the test workflow
-    test_workflow:
-        jobs:
-            - deploy:
-                filters:
-                    branches:
-                        only:
-                            - develop
-                            - staging
-                            - master
