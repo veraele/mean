@@ -9,8 +9,8 @@ jobs:
         steps:
             # Checkout the code from the branch into the working_directory
             - checkout:
-                path: ~/mean/FrontMEAN/src
-            - run: ls -l ~/mean/FrontMEAN
+                path: ~/mean/FrontMEAN/circleci
+            - run: ls -l ~/mean/FrontMEAN/circleci
             # Log the current branch
             - run:
                 name: Show current branch
