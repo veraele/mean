@@ -58,9 +58,6 @@ jobs:
             - run:
                 name: test
                 command: npm run test
-            - run:
-                name: stop-and-remove
-                command: npm run rmdata
 
 workflows:
     version: 2
