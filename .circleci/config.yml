@@ -9,7 +9,7 @@ jobs:
         steps:
             # Checkout the code from the branch into the working_directory
             - checkout:
-                path: ~/mean/FrontMEAN
+                path: ~/mean/FrontMEAN/src
             - run: ls -l ~/mean/FrontMEAN
             # Log the current branch
             - run:
