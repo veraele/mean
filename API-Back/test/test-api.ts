@@ -37,7 +37,6 @@ const createPhoto = () =>  {
 describe('API test: /api/photos', () => {
     it('get a photo', (done) => {
         createPhoto().then((id) => {
-            console.log('jajaja', id);
             chai.request(app)
             .get('/api/photos/'+ id)
             .send()
