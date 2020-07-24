@@ -1,7 +1,7 @@
 import { connect } from 'mongoose';
 
 export async function startConection() {
-    await connect('mongodb://localhost:27017/gallery-db', {
+    await connect('mongodb://database/gallery-db', {
         useNewUrlParser:true,
         useFindAndModify: false
     });

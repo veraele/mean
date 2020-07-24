@@ -1,0 +1,35 @@
+version: '2' # specify docker-compose version
+
+# Define the services/containers to be run
+services:
+  angular: # name of the first service
+    build: FrontMEAN # specify the directory of the Dockerfile
+    ports:
+        - "4200:4200" # specify port forewarding
+    volumes:
+        - ./FrontMEAN:/app # this will enable changes made to the angular app reflect in the container
+
+  express: #name of the second service
+    build: API-Back # specify the directory of the Dockerfile
+    volumes:
+        - ./API-Back:/app # this will enable changes made to the angular app reflect in the container
+    ports:
+        - "3300:3300" #specify ports forewarding
+    links:
+        - database # link this service to the database service
+
+  database: # name of the third service
+    image: mongo:4.0 # specify image to build container from
+    ports:
+      - "27017:27017" # specify port forewarding
+  
+  test:
+    build: TestSelenium # specify the directory of the Dockerfile
+    ports: 
+        - "4444:4444" # specify port forewarding
+        - "6200:5999"
+    volumes: 
+        - ./TestSelenium:/home/root/scripts # this will enable changes made to the angular app reflect in the container
+    extra_hosts:
+        - "localhost:192.168.x.x" # here replace the host machine's ip to conect the container with localhost running angular 
+        

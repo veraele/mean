@@ -7,11 +7,11 @@
     "build": "tsc",
     "clean": "rm -r dist",
     "test": "mocha --timeout 10000 -r ts-node/register test/**/*.ts --exit",
-    "start": "npm run build && node dist/index.js",
-    "dev": "nodemon src/index.ts",
+    "start": "npm run build && node dist/app.js",
+    "dev": "nodemon src/app.ts",
     "database": "docker run --name mongo -p 27017:27017 -d mongo:4.0 mongod && docker start mongo",
     "rmdata": "docker stop mongo && docker rm mongo",
-    "start-dev": "npm run database && npm run build && node dist/index.js"
+    "start-dev": "npm run database && npm run build && node dist/app.js"
   },
   "keywords": [],
   "author": "",
